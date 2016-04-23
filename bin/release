@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# bin/release <build-dir>
+
+cat << EOF
+addons: []
+# default_process_types:
+# 	web: ./approot/web --server.urls http://+:\$PORT
+EOF

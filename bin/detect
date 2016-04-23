@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# bin/detect <build-dir>
+
+if [ -n "$( find $1 -maxdepth 3 -iname project.json )" ]; then
+  echo "ASP.NET 5" && exit 0
+else
+  echo "no" && exit 1
+fi
