@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+function install_dotnet() {
+  local BUILD_DIR="$1"
+
+  curl -sSL -o dotnet.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/Sdk/rel-1.0.0/dotnet-dev-ubuntu-x64.latest.tar.gz
+  mkdir -p ${BUILD_DIR}/dotnet && tar zxf dotnet.tar.gz -C ${BUILD_DIR}/dotnet
+  ln -s ${BUILD_DIR}/dotnet /app
+}
+
+# https://github.com/ddollar/heroku-buildpack-apt
+function topic() {
+  echo "-----> $*"
+}
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+function apt_install(){
+  echo "Install package"
+
+  local apt_cache_dir="$CACHE_DIR/apt/cache"
+  local apt_state_dir="$CACHE_DIR/apt/state"
+  
+  mkdir -p "$apt_cache_dir/archives/partial"
+  mkdir -p "$apt_state_dir/lists/partial"
+  
+  local apt_options="-o debug::nolocking=true -o dir::cache=$apt_cache_dir -o dir::state=$apt_state_dir"
+  
+  topic "Cleaning apt caches"
+  apt-get $apt_options clean | indent
+  
+  topic "Updating apt caches"
+  apt-get  --allow-unauthenticated $apt_options update | indent
+
+  for package in "$@"; do
+    if [[ $package == *deb ]]; then
+      local package_name=$(basename $package .deb)
+      local package_file=$apt_cache_dir/archives/$package_name.deb
+      topic "Fetching $package"
+      curl -s -L -z $package_file -o $package_file $package 2>&1 | indent
+    else
+      topic "Fetching .debs for $package"
+      apt-get $apt_options -y --force-yes -d install --reinstall $package | indent
+    fi
+  done
+  
+  mkdir -p "$BUILD_DIR/.apt"
+
+  for DEB in $(ls -1 $apt_cache_dir/archives/*.deb); do
+    topic "Installing $(basename $DEB)"
+    dpkg -x $DEB "$BUILD_DIR/.apt/"
+  done
+  
+  export PATH="$PATH:$BUILD_DIR/.apt/usr/bin"
+  export LD_LIBRARY_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu:$BUILD_DIR/.apt/usr/lib/i386-linux-gnu:$BUILD_DIR/.apt/usr/lib:${LD_LIBRARY_PATH-}"
+  export LIBRARY_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu:$BUILD_DIR/.apt/usr/lib/i386-linux-gnu:$BUILD_DIR/.apt/usr/lib:${LIBRARY_PATH-}"
+  export INCLUDE_PATH="$BUILD_DIR/.apt/usr/include:${INCLUDE_PATH-}"
+  export CPATH="${INCLUDE_PATH-}"
+  export CPPPATH="${INCLUDE_PATH-}"
+  export PKG_CONFIG_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:$BUILD_DIR/.apt/usr/lib/i386-linux-gnu/pkgconfig:$BUILD_DIR/.apt/usr/lib/pkgconfig:${PKG_CONFIG_PATH-}"
+  echo "APT packages Installled"
+}

@@ -2,17 +2,40 @@
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
 ### Configure environment
-
 set -o errexit    # always exit on error
 set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 
 ### Configure directories
-
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 
-dotnet --info
+mkdir -p $BUILD_DIR/.profile.d
+cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
+
+### Load dependencies
+source $BP_DIR/lib/utils
+
+echo "Installing the dependencies"
+apt_install libunwind8 gettext
+
+echo "Installing dotnet"
+install_dotnet $BUILD_DIR 
+
+export PATH="/app/dotnet:${PATH}"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+
+cd $BUILD_DIR
+dotnet restore
+
+echo "publish"
+PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -iname project.json | head -1)
+PROJECT_NAME=$(basename $(dirname $PROJECT_FILE))
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
+
+cat << EOT >> ${BUILD_DIR}/Procfile
+web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT
+EOT
