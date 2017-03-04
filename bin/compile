@@ -19,6 +19,8 @@ cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
 ### Load dependencies
 source $BP_DIR/lib/utils
 
+export_env_dir $ENV_DIR
+
 echo "Installing the dependencies"
 apt_install libunwind8 gettext
 
@@ -31,9 +33,10 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 cd $BUILD_DIR
 dotnet restore
 
+PROJECT_NAME=$(basename $(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)))
+PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -iname "${PROJECT_NAME}.csproj" | head -1)
 echo "publish"
-PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -iname project.json | head -1)
-PROJECT_NAME=$(basename $(dirname $PROJECT_FILE))
+echo "${PROJECT_NAME}: ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
 
 cat << EOT >> ${BUILD_DIR}/Procfile
