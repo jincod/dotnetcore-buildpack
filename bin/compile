@@ -32,14 +32,16 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 cd $BUILD_DIR
 dotnet --info
-dotnet restore
 
 PROJECT_NAME=$(basename $(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)))
 PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -iname "${PROJECT_NAME}.csproj" | head -1)
-echo "publish"
-echo "${PROJECT_NAME}: ${PROJECT_FILE}"
+
+echo "restore ${PROJECT_FILE}"
+dotnet restore $PROJECT_FILE
+
+echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release
 
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT
+web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT
 EOT
