@@ -22,3 +22,16 @@ heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack.git#cedar-1
 
 - [Buildpack references](https://devcenter.heroku.com/articles/buildpacks#buildpack-references)
 - [Heroku-16 Stack](https://devcenter.heroku.com/articles/heroku-16-stack)
+
+## Node.js and NPM
+
+```bash
+heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
+heroku buildpacks:add --index 1 heroku/nodejs
+```
+
+[Using Multiple Buildpacks for an App](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app)
+
+## Example
+
+[ASP.NET Core Demo App](https://github.com/jincod/AspNet5DemoApp)
