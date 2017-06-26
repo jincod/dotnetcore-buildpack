@@ -38,8 +38,8 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 cd $BUILD_DIR
 dotnet --info
 
-PROJECT_NAME=$(basename $(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)))
-PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -iname "${PROJECT_NAME}.csproj" | head -1)
+PROJECT_FILE=$(find $(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)) -maxdepth 1 -iname '*.csproj' | head -1)
+PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 
 echo "restore ${PROJECT_FILE}"
 dotnet restore $PROJECT_FILE
