@@ -2,7 +2,7 @@
 
 ## Usage
 
-For Heroku-16 stack and 2.0.0 Preview 1 use:
+For Heroku-16 stack and 2.0.0 Preview 2 use:
 
 ```
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
