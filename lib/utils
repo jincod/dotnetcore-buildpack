@@ -2,11 +2,30 @@
 
 function install_dotnet() {
   local BUILD_DIR="$1"
+  local CORE_CHANNEL="${2:-2.0}"
+  local INSTALL_SCRIPT="$CACHE_DIR/dotnet-install.sh"
+  local INSTALL_DIR="$CACHE_DIR/dotnet"
 
-  # https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md
-  curl -sSL -o dotnet.tar.gz https://download.microsoft.com/download/1/B/4/1B4DE605-8378-47A5-B01B-2C79D6C55519/dotnet-sdk-2.0.0-linux-x64.tar.gz
-  mkdir -p ${BUILD_DIR}/dotnet && tar zxf dotnet.tar.gz -C ${BUILD_DIR}/dotnet
-  ln -s ${BUILD_DIR}/dotnet /app
+  topic "Installing .NET Core SDK"
+  if [ ! -d "$INSTALL_DIR" ]; then
+    if [ ! -d $CACHE_DIR ]; then
+      mkdir -p $CACHE_DIR
+    fi
+
+    # Get the installer
+    curl -sSL -o $INSTALL_SCRIPT https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh
+
+    # And made it executable
+    chmod +x $INSTALL_SCRIPT
+
+    export DOTNET_INSTALL_SKIP_PREREQS=1
+    $INSTALL_SCRIPT --install-dir $INSTALL_DIR --channel $CORE_CHANNEL
+  fi
+
+  # Copy it to the app directory
+  cp -R $INSTALL_DIR $BUILD_DIR/dotnet
+  
+  ln -s $BUILD_DIR/dotnet /app
 }
 
 # https://github.com/ddollar/heroku-buildpack-apt
@@ -62,10 +81,10 @@ function apt_install(){
   export LD_LIBRARY_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu:$BUILD_DIR/.apt/usr/lib/i386-linux-gnu:$BUILD_DIR/.apt/usr/lib:${LD_LIBRARY_PATH-}"
   export LIBRARY_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu:$BUILD_DIR/.apt/usr/lib/i386-linux-gnu:$BUILD_DIR/.apt/usr/lib:${LIBRARY_PATH-}"
   export INCLUDE_PATH="$BUILD_DIR/.apt/usr/include:${INCLUDE_PATH-}"
-  export CPATH="${INCLUDE_PATH-}"
-  export CPPPATH="${INCLUDE_PATH-}"
+  export CPATH="$INCLUDE_PATH"
+  export CPPPATH="$INCLUDE_PATH"
   export PKG_CONFIG_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:$BUILD_DIR/.apt/usr/lib/i386-linux-gnu/pkgconfig:$BUILD_DIR/.apt/usr/lib/pkgconfig:${PKG_CONFIG_PATH-}"
-  echo "APT packages Installled"
+  echo "APT packages Installed"
 }
 
 export_env_dir() {
@@ -81,4 +100,9 @@ export_env_dir() {
       done
     fi
   fi
+}
+
+function valid_project() {
+  SDK_TYPE=`python3 -c "from xml.etree.ElementTree import ElementTree;import io;print(ElementTree(file=io.FileIO('$1')).getroot().attrib['Sdk'])"`
+  [ "$SDK_TYPE" = "Microsoft.NET.Sdk.Web" ]
 }
