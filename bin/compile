@@ -41,12 +41,12 @@ dotnet --info
 PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
 PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 
-echo "restore ${PROJECT_FILE}"
-dotnet restore $PROJECT_FILE --runtime linux-x64
-
 echo "publish ${PROJECT_FILE}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64 --self-contained
+
+echo "cleanup"
+dotnet_cleanup $BUILD_DIR
 
 cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll" --server.urls http://+:\$PORT
+web: cd \$HOME/heroku_output && chmod +x ${PROJECT_NAME} && ASPNETCORE_URLS='http://+:\$PORT' ./${PROJECT_NAME} --server.urls http://+:\$PORT
 EOT
