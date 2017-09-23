@@ -1,5 +1,8 @@
 # Heroku .NET Core Buildpack
 
+
+This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks) for [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/).
+
 ## Usage
 
 For Heroku-16 stack and .NET Core 2.0.0
