@@ -38,8 +38,13 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 cd $BUILD_DIR
 dotnet --info
 
-PROJECT_FILE="${PROJECT_FILE:-$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)}"
-PROJECT_NAME="${PROJECT_NAME:-$(basename ${PROJECT_FILE%.*})}"
+if [ -z ${PROJECT_FILE} ]; then
+	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
+fi
+
+if [ -z ${PROJECT_NAME} ]; then
+	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
+fi
 
 echo "restore ${PROJECT_FILE}"
 dotnet restore $PROJECT_FILE --runtime linux-x64
