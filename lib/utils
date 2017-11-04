@@ -2,10 +2,17 @@
 
 function install_dotnet() {
   local BUILD_DIR="$1"
+  local CACHE_DIR="$2"
+  local ZIP_NAME="dotnet-2.0.0.tar.gz"
 
-  # https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md
-  curl -sSL -o dotnet.tar.gz https://download.microsoft.com/download/1/B/4/1B4DE605-8378-47A5-B01B-2C79D6C55519/dotnet-sdk-2.0.0-linux-x64.tar.gz
-  mkdir -p ${BUILD_DIR}/.heroku/dotnet && tar zxf dotnet.tar.gz -C ${BUILD_DIR}/.heroku/dotnet
+  if [ ! -f $CACHE_DIR/$ZIP_NAME ]; then
+    # https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.0-download.md
+    curl -sSL -o $CACHE_DIR/$ZIP_NAME https://download.microsoft.com/download/1/B/4/1B4DE605-8378-47A5-B01B-2C79D6C55519/dotnet-sdk-2.0.0-linux-x64.tar.gz
+  else
+    echo "$ZIP_NAME from cache folder"
+  fi
+
+  mkdir -p ${BUILD_DIR}/.heroku/dotnet && tar zxf $CACHE_DIR/$ZIP_NAME -C ${BUILD_DIR}/.heroku/dotnet
   ln -s ${BUILD_DIR}/.heroku/dotnet /app
 }
 
