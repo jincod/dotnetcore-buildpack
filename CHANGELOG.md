@@ -4,6 +4,7 @@
 
 - Removed `dotnet restore` step because it is run implicitly as part of `dotnet publish`
 - Extremely optimized slag size (`DOTNET_SKIP_FIRST_TIME_EXPERIENCE:1`)
+- Updated .NET Core SDK 2.0.2
 
 ## 2017-11-03
 
