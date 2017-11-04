@@ -3,6 +3,7 @@
 ## 2017-11-04
 
 - Removed `dotnet restore` step because it is run implicitly as part of `dotnet publish`
+- Extremely optimized slag size (`DOTNET_SKIP_FIRST_TIME_EXPERIENCE:1`)
 
 ## 2017-11-03
 
