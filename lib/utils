@@ -54,7 +54,7 @@ function apt_install(){
       curl -s -L -z $package_file -o $package_file $package 2>&1 | indent
     else
       topic "Fetching .debs for $package"
-      apt-get $apt_options -y --force-yes -d install --reinstall $package | indent
+      apt-get $apt_options -y --allow-downgrades --allow-remove-essential --allow-change-held-packages -d install --reinstall $package | indent
     fi
   done
   
