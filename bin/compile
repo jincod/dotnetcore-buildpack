@@ -49,7 +49,7 @@ if [ -e "$BUILD_DIR/Procfile" ]; then
     numberOfProjects=0
 	while read line || [[ -n "$line" ]];
     do
-        if [[ $line =~ [0-9A-Za-z]+\.dll ]]; then
+        if [[ $line =~ [0-9A-Za-z\.]+\.dll ]]; then
             PROJECT_NAME=${BASH_REMATCH[0]%.dll}
 			publish $PROJECT_NAME $BUILD_DIR
 			numberOfProjects=$((numberOfProjects+1))
