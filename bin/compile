@@ -40,6 +40,29 @@ export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 cd $BUILD_DIR
 dotnet --info
 
+function publish() {
+	echo "publish $1"
+	dotnet publish $1 --output $2 --configuration Release --runtime linux-x64
+}
+
+if [ -e "$BUILD_DIR/Procfile" ]; then
+    numberOfProjects=0
+	while read line || [[ -n "$line" ]];
+    do
+        if [[ $line =~ [0-9A-Za-z\.]+\.dll ]]; then
+            PROJECT_NAME=${BASH_REMATCH[0]%.dll}
+			publish $PROJECT_NAME $BUILD_DIR/heroku_output/$PROJECT_NAME
+			numberOfProjects=$((numberOfProjects+1))
+        fi
+    done < $BUILD_DIR/Procfile
+	if (($numberOfProjects > 0)); then
+		exit 0
+	else
+		echo "Procfile file found but no projects published"
+		exit 1
+	fi
+fi
+
 if [ -z ${PROJECT_FILE:-} ]; then
 	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
 fi
@@ -48,8 +71,7 @@ if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
 
-echo "publish ${PROJECT_FILE}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
+publish $PROJECT_FILE ${BUILD_DIR}/heroku_output
 
 cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll"
