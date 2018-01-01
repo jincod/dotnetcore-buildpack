@@ -5,7 +5,7 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 
 ## Usage
 
-For Heroku-16 stack and .NET Core 2.0.0
+For Heroku-16 stack and .NET Core latest
 
 ```
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack

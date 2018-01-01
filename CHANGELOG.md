@@ -3,6 +3,7 @@
 ## 2018-01-01
 
 - Added .NET Core 1.1.5 LTS support (Thanks @bolorundurowb)
+- Updated .NET Core SDK 2.1.3
 
 ## 2017-11-04
 
