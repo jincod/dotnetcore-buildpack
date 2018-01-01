@@ -3,7 +3,7 @@
 function install_dotnet() {
   local BUILD_DIR="$1"
   local CACHE_DIR="$2"
-  local ZIP_NAME="dotnet-2.0.2.tar.gz"
+  local ZIP_NAME="dotnet-2.0.3.tar.gz"
 
   if [ ! -f $CACHE_DIR/$ZIP_NAME ]; then
     # https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.3.md
