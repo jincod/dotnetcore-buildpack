@@ -17,6 +17,12 @@ For Heroku-16 stack and .NET Core 1.0.4 (LTS)
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v1.0.4
 ```
 
+For Heroku-16 stack and .NET Core 1.1.5 (LTS)
+
+```
+heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v1.1.5
+```
+
 For Cedar-14 stack **(Deprecated)**
 
 ```

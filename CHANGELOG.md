@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2018-01-01
+
+- Added .NET Core 1.1.5 LTS support (Thanks @bolorundurowb)
+
 ## 2017-11-04
 
 - Removed `dotnet restore` step because it is run implicitly as part of `dotnet publish`
