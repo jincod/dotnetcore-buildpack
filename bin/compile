@@ -50,6 +50,7 @@ fi
 
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
+dotnet ef database update
 
 cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll"
