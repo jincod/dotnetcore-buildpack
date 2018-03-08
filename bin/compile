@@ -33,7 +33,7 @@ apt_install libunwind8 gettext
 
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR
-
+zaz
 export PATH="/app/dotnet:${PATH}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
@@ -48,9 +48,14 @@ if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
 
+echo "restore ${PROJECT_FILE}"
+dotnet restore $PROJECT_FILE
+
+echo "run migrations on ${PROJECT_FILE}"
+dotnet ef database update
+
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
-dotnet ef database update
 
 cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll"
