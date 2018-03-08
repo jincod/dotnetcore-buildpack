@@ -48,11 +48,21 @@ if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
 
+ROOT_DIR=$(pwd)
+PROJ_DIR=$(dirname $PROJECT_FILE)
+
+echo "current dir ${ROOT_DIR}"
+echo "project dir ${PROJ_DIR}"
+
+cd $PROJ_DIR
+
 echo "restore ${PROJECT_FILE}"
-dotnet restore $PROJECT_FILE
+dotnet restore
 
 echo "run migrations on ${PROJECT_FILE}"
 dotnet ef database update
+
+cd $ROOT_DIR
 
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
