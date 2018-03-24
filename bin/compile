@@ -7,11 +7,6 @@ set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 
-if [ "$STACK" != "heroku-16" ]; then
-	echo "Need heroku-16 stack"
-	exit 1
-fi
-
 ### Configure directories
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
@@ -23,6 +18,7 @@ cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
 
 ### Load dependencies
 source $BP_DIR/lib/utils
+topic "Building ASP.Net core application ..."
 
 export_env_dir $ENV_DIR
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=${DOTNET_SKIP_FIRST_TIME_EXPERIENCE:-1}
@@ -35,7 +31,7 @@ echo "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR
 
 export PATH="/app/dotnet:${PATH}"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+
 
 cd $BUILD_DIR
 dotnet --info
@@ -50,6 +46,8 @@ fi
 
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
+
+
 
 cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ASPNETCORE_URLS='http://+:\$PORT' dotnet "./${PROJECT_NAME}.dll"

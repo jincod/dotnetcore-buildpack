@@ -1,0 +1,2 @@
+# Preventing Windows related problems (i.e. when testing under docker)
+* eol=lf
