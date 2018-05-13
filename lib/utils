@@ -3,11 +3,11 @@
 function install_dotnet() {
   local BUILD_DIR="$1"
   local CACHE_DIR="$2"
-  local ZIP_NAME="dotnet-2.1.105.tar.gz"
+  local ZIP_NAME="dotnet-2.1.200.tar.gz"
 
   if [ ! -f $CACHE_DIR/$ZIP_NAME ]; then
-    # https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.7-download.md
-    curl -sSL -o $CACHE_DIR/$ZIP_NAME https://download.microsoft.com/download/2/E/C/2EC018A0-A0FC-40A2-849D-AA692F68349E/dotnet-sdk-2.1.105-linux-x64.tar.gz
+    # https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.1.200-sdk-download.md
+    curl -sSL -o $CACHE_DIR/$ZIP_NAME https://download.microsoft.com/download/3/7/1/37189942-C91D-46E9-907B-CF2B2DE584C7/dotnet-sdk-2.1.200-linux-x64.tar.gz
   else
     echo "$ZIP_NAME from cache folder"
   fi
