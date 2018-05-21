@@ -1,5 +1,25 @@
 # .NET Core Buildpack Changelog
 
+## 2018-05-13
+
+- Updated .NET Core SDK 2.1.200
+
+## 2018-04-18
+
+- Updated .NET Core SDK 2.1.105
+
+## 2018-04-06
+
+- Updated .NET Core SDK 2.1.104
+
+## 2018-03-30
+
+- Updated .NET Core SDK 2.1.103
+
+## 2018-03-15
+
+- Updated .NET Core SDK 2.1.101
+
 ## 2018-01-13
 
 - Updated .NET Core SDK 2.1.4
