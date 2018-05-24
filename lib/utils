@@ -6,8 +6,7 @@ function install_dotnet() {
   local ZIP_NAME="dotnet-2.1.300.tar.gz"
 
   if [ ! -f $CACHE_DIR/$ZIP_NAME ]; then
-    # https://www.microsoft.com/net/download/dotnet-core/sdk-2.1.300-rc1
-    curl -sSL -o $CACHE_DIR/$ZIP_NAME https://download.microsoft.com/download/B/1/9/B19A2F87-F00F-420C-B4B9-A0BA4403F754/dotnet-sdk-2.1.300-rc1-008673-linux-x64.tar.gz
+    curl -sSL -o $CACHE_DIR/$ZIP_NAME https://dotnetcli.blob.core.windows.net/dotnet/Sdk/2.1.300/dotnet-sdk-2.1.300-linux-x64.tar.gz
   else
     echo "$ZIP_NAME from cache folder"
   fi
