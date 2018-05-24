@@ -2,7 +2,7 @@
 
 testDotNetCore2() {
   compile "dotnetcore-2"
-  assertCaptured ".NET Command Line Tools (2.0.0)"
+  assertCaptured ".NET Command Line Tools (2.1.200)"
   assertCapturedSuccess
 }
 
