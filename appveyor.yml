@@ -2,11 +2,14 @@ version: 1.0.{build}
 
 image: ubuntu
 
+services:
+  - docker
+
 build_script:
-  - tar -cvzf dotnetcore-buildpack-1.0.{build}.tar.gz ./*
+  - tar -cvzf "dotnetcore-buildpack-1.0.${APPVEYOR_BUILD_NUMBER}.tar.gz" ./*
 
 test_script:
   - make test
 
 artifacts:
-  - path: dotnetcore-buildpack-1.0.{build}.tar.gz
+  - path: 'dotnetcore-buildpack-1.0.$(APPVEYOR_BUILD_NUMBER).tar.gz'
