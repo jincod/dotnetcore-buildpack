@@ -1,5 +1,11 @@
 # .NET Core Buildpack Changelog
 
+## 2018-05-26
+
+- Added tests
+- Added Appveyor CI
+- Added heroku-18 stack support
+
 ## 2018-05-13
 
 - Updated .NET Core SDK 2.1.200
