@@ -1,0 +1,16 @@
+version: 1.0.{build}
+
+image: ubuntu
+
+services:
+  - docker
+
+build_script:
+  - tar -cvzf "dotnetcore-buildpack-1.0.${APPVEYOR_BUILD_NUMBER}.tar.gz" ./*
+
+test_script:
+  - make test-heroku-18
+  - make test-heroku-16
+
+artifacts:
+  - path: 'dotnetcore-buildpack-1.0.$(APPVEYOR_BUILD_NUMBER).tar.gz'
