@@ -34,7 +34,7 @@ apt_install libunwind8 gettext
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR
 
-export PATH="/app/dotnet:${PATH}"
+export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 cd $BUILD_DIR

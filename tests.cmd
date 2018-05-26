@@ -1,1 +1,1 @@
-docker run -v %CD%:/buildpack --rm -it -e "STACK=heroku-16" heroku/heroku:16 bash -c "cp -r /buildpack /buildpack_test; cd /buildpack_test/; test/run;"
+docker run -v %CD%:/buildpack:ro --rm -it -e "STACK=heroku-16" heroku/heroku:16 bash -c "cp -r /buildpack /buildpack_test; cd /buildpack_test/; test/run;"
