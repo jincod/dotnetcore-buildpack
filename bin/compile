@@ -7,8 +7,8 @@ set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 
-if [ "$STACK" != "heroku-16" ]; then
-	echo "Need heroku-16 stack"
+if [ "$STACK" != "heroku-16" ] && [ "$STACK" != "heroku-18" ]; then
+	echo "Need heroku-16 or heroku-18 stack"
 	exit 1
 fi
 

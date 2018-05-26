@@ -9,7 +9,8 @@ build_script:
   - tar -cvzf "dotnetcore-buildpack-1.0.${APPVEYOR_BUILD_NUMBER}.tar.gz" ./*
 
 test_script:
-  - make test
+  - make test-heroku-18
+  - make test-heroku-16
 
 artifacts:
   - path: 'dotnetcore-buildpack-1.0.$(APPVEYOR_BUILD_NUMBER).tar.gz'
