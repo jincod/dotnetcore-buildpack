@@ -5,34 +5,27 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 
 ## Usage
 
-For Heroku-16 stack and .NET Core latest
+.NET Core latest stable
 
 ```
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
 ```
 
-For Heroku-16 stack and .NET Core 1.1.5 (LTS)
+.NET Core 2.1.200
+
+```
+heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v2.1.200
+```
+
+.NET Core 1.1.5 (LTS)
 
 ```
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v1.1.5
 ```
 
-For Heroku-16 stack and .NET Core 1.0.4
-
-```
-heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v1.0.4
-```
-
-For Cedar-14 stack **(Deprecated)**
-
-```
-heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack.git#cedar-14
-```
-
 More info
 
 - [Buildpack references](https://devcenter.heroku.com/articles/buildpacks#buildpack-references)
-- [Heroku-16 Stack](https://devcenter.heroku.com/articles/heroku-16-stack)
 
 ## Node.js and NPM
 

@@ -1,0 +1,5 @@
+bin/* text eol=lf
+lib/* text eol=lf
+profile/* text eol=lf
+test/* text eol=lf
+Makefile text eol=lf

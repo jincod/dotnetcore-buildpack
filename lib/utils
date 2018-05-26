@@ -13,7 +13,6 @@ function install_dotnet() {
   fi
 
   mkdir -p ${BUILD_DIR}/.heroku/dotnet && tar zxf $CACHE_DIR/$ZIP_NAME -C ${BUILD_DIR}/.heroku/dotnet
-  ln -s ${BUILD_DIR}/.heroku/dotnet /app
 }
 
 # https://github.com/ddollar/heroku-buildpack-apt
