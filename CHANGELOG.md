@@ -1,10 +1,22 @@
 # .NET Core Buildpack Changelog
 
+## 2018-05-31
+
+- Updated .NET Core 2.1.300
+
 ## 2018-05-26
 
 - Added tests
 - Added Appveyor CI
 - Added heroku-18 stack support
+
+## 2018-05-24
+
+- Updated .NET Core 2.1.0 Early Access
+
+## 2018-05-15
+
+- Updated .NET Core SDK 2.1.300-rc1
 
 ## 2018-05-13
 
@@ -14,6 +26,10 @@
 
 - Updated .NET Core SDK 2.1.105
 
+## 2018-04-12
+
+- Updated .NET Core SDK 2.1.300-Preview 2
+
 ## 2018-04-06
 
 - Updated .NET Core SDK 2.1.104
@@ -21,6 +37,10 @@
 ## 2018-03-30
 
 - Updated .NET Core SDK 2.1.103
+
+## 2018-03-17
+
+- Updated .NET Core SDK 2.1.300 Preview
 
 ## 2018-03-15
 
