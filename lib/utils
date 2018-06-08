@@ -29,6 +29,7 @@ function indent() {
   esac
 }
 
+  export PATH="${DOTNET_CACHE_LOCATION}/sdk:$PATH"
 function apt_install(){
   echo "Install package"
 
