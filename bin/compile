@@ -31,13 +31,8 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=${DOTNET_CLI_TELEMETRY_OPTOUT:-1}
 export DOTNET_SDK_VERSION=${DOTNET_SDK_VERSION:-2.1.300}
 export DOTNET_RUNTIME_VERSION=${DOTNET_RUNTIME_VERSION:-2.1.0}
 
-echo "Installing the dependencies"
-apt_install libunwind8 gettext
-
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
-
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
 cd $BUILD_DIR
 dotnet --info
