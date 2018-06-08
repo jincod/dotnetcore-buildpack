@@ -17,6 +17,7 @@ function install_dotnet() {
   local BUILD_DIR="$1"
   local CACHE_DIR="$2"
   local DOTNET_SDK_VERSION="$3"
+  local DOTNET_RUNTIME_VERSION="$4"
 
   local DOTNET_CACHE_LOCATION=${CACHE_DIR}/dotnet/${DOTNET_SDK_VERSION}
   if [ ! -d ${DOTNET_CACHE_LOCATION} ]; then
@@ -31,7 +32,7 @@ function install_dotnet() {
     rm -f ${DOTNET_CACHE_LOCATION}/sdk/sdk/${DOTNET_SDK_VERSION}/nuGetPackagesArchive.lzma
 
     topic "Fetching .NET Runtime"
-    local DOTNET_RUNTIME_DOWNLOAD_URL=https://dotnetcli.blob.core.windows.net/dotnet/Runtime/$DOTNET_VERSION/dotnet-runtime-$DOTNET_VERSION-linux-x64.tar.gz
+    local DOTNET_RUNTIME_DOWNLOAD_URL=https://dotnetcli.blob.core.windows.net/dotnet/Runtime/$DOTNET_RUNTIME_VERSION/dotnet-runtime-$DOTNET_RUNTIME_VERSION-linux-x64.tar.gz
     curl -sSL ${DOTNET_RUNTIME_DOWNLOAD_URL} | tar xz -C ${DOTNET_CACHE_LOCATION}/runtime
   fi
 
