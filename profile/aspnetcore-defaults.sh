@@ -1,1 +1,1 @@
-export PATH="$PATH:$HOME/.heroku/dotnet"
+export ASPNETCORE_URLS="http://+:$PORT"
