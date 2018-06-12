@@ -45,6 +45,12 @@ if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
 
+if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
+	topic "WARNING"
+	echo "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
+	echo "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
+fi
+
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
 
