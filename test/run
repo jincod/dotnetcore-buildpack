@@ -2,7 +2,6 @@
 
 testDotNetCore2() {
   compile "dotnetcore-2"
-  assertCaptured ".NET Core SDKs installed"
   assertCaptured "dotnetcore-2 ->"
   assertCapturedSuccess
 }
