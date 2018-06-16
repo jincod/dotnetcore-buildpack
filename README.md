@@ -36,7 +36,7 @@ You cannot run migrations with the `dotnet ef` commands once the app is built. A
 
 ### Enabling Automatic Migrations
 
-- Ensure the `ASPNETCORE_ENVIRONMENT` environment variable is set to `Production`. ASP.NET Core scaffolding tools may create files that explicitly set it to `Development`. Heroku config will override this (`heroku config:set ENV_VAR_NAME=env-var-value`).
+- Ensure the `ASPNETCORE_ENVIRONMENT` environment variable is set to `Production`. ASP.NET Core scaffolding tools may create files that explicitly set it to `Development`. Heroku config will override this (`heroku config:set ASPNETCORE_ENVIRONMENT=Production`).
 - Configure your app to automatically run migrations at startup by adding the following to the `.csproj` file:
 
 ```xml
