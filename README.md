@@ -14,6 +14,12 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
 ```
 
+.NET Core 2.1.301
+
+```
+heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v2.1.301
+```
+
 .NET Core 2.1.300
 
 ```
