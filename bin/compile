@@ -54,6 +54,11 @@ fi
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
 
-cat << EOT >> ${BUILD_DIR}/Procfile
+if [ ! -f ${BUILD_DIR}/Procfile ]; then
+	cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ./${PROJECT_NAME}
 EOT
+else
+	topic "WARNING"
+	echo "Be careful with custom Procfile" | indent
+fi
