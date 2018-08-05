@@ -6,6 +6,12 @@ testDotNetCore2() {
   assertCapturedSuccess
 }
 
+testDotNetCore2CustomProcfile() {
+  compile "custom-procfile"
+  assertCaptured "Be careful with custom Procfile"
+  assertCapturedSuccess
+}
+
 # Utils
 
 pushd $(dirname 0) >/dev/null
