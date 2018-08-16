@@ -5,8 +5,9 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/5864d533m5d35nsa?svg=true)](https://ci.appveyor.com/project/jincod/dotnetcore-buildpack)
 
-
 ## Usage
+
+The Buildpack will search through the repository's folders to locate a `Startup.cs` file. If found, the `.csproj` in the containing folder will be used in the `dotnet publish <project>.csproj` command.
 
 .NET Core latest stable
 
