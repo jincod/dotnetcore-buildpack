@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2018-08-15
+
+- Updated .NET Core 2.1.400
+
 ## 2018-08-05
 
 - Added support custom Procfile ([#53](https://github.com/jincod/dotnetcore-buildpack/pull/53))
