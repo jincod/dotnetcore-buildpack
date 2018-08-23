@@ -12,6 +12,12 @@ The Buildpack will search through the repository's folders to locate a `Startup.
 ### .NET Core latest stable
 
 ```
+heroku buildpacks:set jincod/dotnetcore
+```
+
+### .NET Core edge
+
+```
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
 ```
 
@@ -31,12 +37,13 @@ heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v1.1.5
 
 More info
 
+- [Heroku Buildpack Registry](https://devcenter.heroku.com/articles/buildpack-registry)
 - [Buildpack references](https://devcenter.heroku.com/articles/buildpacks#buildpack-references)
 
 ## Node.js and NPM
 
 ```bash
-heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
+heroku buildpacks:set jincod/dotnetcore
 heroku buildpacks:add --index 1 heroku/nodejs
 ```
 
