@@ -12,6 +12,12 @@ testDotNetCore2CustomProcfile() {
   assertCapturedSuccess
 }
 
+testDotNetCore2Preview() {
+  compile "dotnetcore-2.2"
+  assertCaptured "dotnetcore-2.2 ->"
+  assertCapturedSuccess
+}
+
 # Utils
 
 pushd $(dirname 0) >/dev/null
