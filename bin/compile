@@ -55,6 +55,9 @@ echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime ubuntu-x64 --self-contained=true -p:UseAppHost=true
 chmod +x ${BUILD_DIR}/heroku_output/${PROJECT_NAME}
 
+echo "Cleanup dotnet SDK"
+cleanup_dotnet $BUILD_DIR
+
 if [ ! -f ${BUILD_DIR}/Procfile ]; then
 	cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ./${PROJECT_NAME}
