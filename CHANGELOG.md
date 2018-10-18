@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2018-10-18
+
+- Updated .NET Core 2.1.403
+
 ## 2018-09-13
 
 - Updated .NET Core 2.1.402
