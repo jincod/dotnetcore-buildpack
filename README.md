@@ -9,6 +9,8 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 
 The Buildpack will search through the repository's folders to locate a `Startup.cs` file. If found, the `.csproj` in the containing folder will be used in the `dotnet publish <project>.csproj` command.
 
+If repository contains **multiple** Web Applications (multiple `Startup.cs`), `PROJECT_FILE` and `PROJECT_NAME` environment variables allow to choose project for publishing.
+
 ### .NET Core latest stable
 
 ```
@@ -21,19 +23,13 @@ heroku buildpacks:set jincod/dotnetcore
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
 ```
 
-### Releases
+### Previous releases
 
 ```
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#version
 ```
 
 Available [releases](https://github.com/jincod/dotnetcore-buildpack/releases)
-
-### .NET Core 1.1.5 (LTS)
-
-```
-heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#v1.1.5
-```
 
 More info
 
