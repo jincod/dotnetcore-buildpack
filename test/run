@@ -18,7 +18,7 @@ testDotNetCore2CustomProcfile() {
   assertCapturedSuccess
 }
 
-testDotNetCore2Preview() {
+testDotNetCore22() {
   compile "dotnetcore-2.2"
   assertCaptured "dotnetcore-2.2 ->"
   assertCapturedSuccess
