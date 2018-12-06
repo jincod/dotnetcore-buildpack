@@ -4,6 +4,10 @@
 
 - Updated .NET Core 2.2.100
 
+## 2018-10-18
+
+- Updated .NET Core 2.2.0-preview3
+
 ## 2018-11-14
 
 - Updated .NET Core 2.1.500
@@ -15,6 +19,11 @@
 ## 2018-09-13
 
 - Updated .NET Core 2.1.402
+- Updated .NET Core 2.2.0-preview2
+
+## 2018-08-29
+
+- Updated .NET Core 2.2.0-preview1
 
 ## 2018-08-22
 
