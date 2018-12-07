@@ -24,6 +24,12 @@ testDotNetCore22() {
   assertCapturedSuccess
 }
 
+testDotNetCore30Preview() {
+  compile "dotnetcore-3.0"
+  assertCaptured "dotnetcore-3.0 ->"
+  assertCapturedSuccess
+}
+
 # Utils
 
 pushd $(dirname 0) >/dev/null
