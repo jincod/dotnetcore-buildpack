@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2019-01-10
+
+- Updated .NET Core 2.2.102
+
 ## 2018-12-06
 
 - Updated .NET Core 2.2.100
