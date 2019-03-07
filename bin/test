@@ -24,13 +24,4 @@ export PATH="${DOTNET_SDK_LOCATION}:${PATH}"
 
 cd $BUILD_DIR
 
-if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -name *.csproj -exec grep -l -H 'Microsoft.NET.Test.Sdk' {} \;)
-fi
-
-if [ -z ${PROJECT_NAME:-} ]; then
-	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
-fi
-
-echo "build ${PROJECT_FILE}"
-dotnet test $PROJECT_FILE -v q --no-build --no-restore --output ${BUILD_DIR}/test_output
+dotnet test -v q --no-build --no-restore
