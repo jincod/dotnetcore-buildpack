@@ -19,5 +19,7 @@ if [ -z ${TEST_PROJECT_FILE:-} ]; then
 fi
 
 export PROJECT_FILE=${TEST_PROJECT_FILE}
+export BUILD_CONFIG=Debug
+export BUILD_PUBLISH="false"
 
 $BP_DIR/bin/compile "$1" "$2" "$3"
