@@ -58,11 +58,12 @@ export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 echo "publish ${PROJECT_FILE}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
 
-if [ ! -f ${BUILD_DIR}/Procfile ]; then
+if [ -f ${BUILD_DIR}/Procfile ] && grep -q '^web:' ${BUILD_DIR}/Procfile ; then
+	topic "WARNING"
+	echo "Be careful with custom Procfile" | indent
+else
+	echo "Add web process to Procfile" | indent
 	cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ./${PROJECT_NAME}
 EOT
-else
-	topic "WARNING"
-	echo "Be careful with custom Procfile" | indent
 fi
