@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# bin/test-compile <build-dir> <cache-dir> <env-dir>
+
+### Configure environment
+set -o errexit    # always exit on error
+set -o pipefail   # don't ignore exit codes when piping output
+set -o nounset    # fail on unset variables
+
+### Configure directories
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+
+cd $BUILD_DIR
+
+if [ -z ${TEST_PROJECT_FILE:-} ]; then
+	TEST_PROJECT_FILE=$(find ${BUILD_DIR} -maxdepth 5 -name *.csproj -exec grep -l -H 'Microsoft.NET.Test.Sdk' {} \;)
+fi
+
+export PROJECT_FILE=${TEST_PROJECT_FILE}
+export BUILD_CONFIG=Debug
+export BUILD_PUBLISH="false"
+
+$BP_DIR/bin/compile "$1" "$2" "$3"
