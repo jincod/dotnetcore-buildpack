@@ -7,7 +7,7 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 
 ## Usage
 
-The Buildpack will search through the repository's folders to locate a `Startup.cs` file. If found, the `.csproj` in the containing folder will be used in the `dotnet publish <project>.csproj` command.
+The Buildpack will search through the repository's folders to locate a `Startup.cs` or `Program.cs` file. If found, the `.csproj` in the containing folder will be used in the `dotnet publish <project>.csproj` command.
 
 If repository contains **multiple** Web Applications (multiple `Startup.cs`), `PROJECT_FILE` and `PROJECT_NAME` environment variables allow to choose project for publishing.
 
