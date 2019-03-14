@@ -42,21 +42,18 @@ cd $BUILD_DIR
 if [ -z ${PROJECT_FILE:-} ]; then
 	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
 fi
-
 if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
-
 if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 	topic "WARNING"
 	echo "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
 	echo "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
 fi
-
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
-echo "publish ${PROJECT_FILE}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
+echo "publish ${PROJECT_FILE} for ${ASPNETCORE_ENVIRONMENT}"
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${ASPNETCORE_ENVIRONMENT} --runtime linux-x64
 
 if [ -f ${BUILD_DIR}/Procfile ] && grep -q '^web:' ${BUILD_DIR}/Procfile ; then
 	topic "WARNING"
