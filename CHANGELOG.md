@@ -1,16 +1,48 @@
 # .NET Core Buildpack Changelog
 
+## 2019-09-24
+
+- Updated .NET Core v3.0.100
+
+## 2019-09-17
+
+- Updated .NET Core v3.0.0-rc1
+
 ## 2019-09-11
 
 - Updated .NET Core 2.2.402
+
+## 2019-09-08
+
+- Updated .NET Core v3.0.0-preview9
+
+## 2019-08-13
+
+- Updated .NET Core v3.0.0-preview8
+
+## 2019-07-23
+
+- Updated .NET Core v3.0.0-preview7
 
 ## 2019-07-11
 
 - Updated .NET Core 2.2.301
 
+## 2019-06-13
+
+- Updated .NET Core v3.0.0-preview6
+
 ## 2019-05-15
 
 - Updated .NET Core 2.2.204
+
+## 2019-05-07
+
+- Updated .NET Core v3.0.0-preview5
+
+## 2019-04-23
+
+- Updated .NET Core v3.0.0-preview4
 
 ## 2019-04-10
 
@@ -20,13 +52,25 @@
 
 - Updated .NET Core 2.2.105
 
+## 2019-03-07
+
+- Updated .NET Core v3.0.0-preview3
+
 ## 2019-02-13
 
 - Updated .NET Core 2.2.104
 
+## 2019-01-31
+
+- Updated .NET Core 3.0.100-preview2
+
 ## 2019-01-10
 
 - Updated .NET Core 2.2.102
+
+## 2018-12-07
+
+- Updated .NET Core 3.0.100-preview-009812
 
 ## 2018-12-06
 
