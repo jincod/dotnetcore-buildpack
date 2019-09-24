@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2019-09-24
+
+- Updated .NET Core v3.0.100
+
 ## 2019-09-17
 
 - Updated .NET Core v3.0.0-rc1
