@@ -2,7 +2,7 @@
 
 ## 2019-09-24
 
-- Updated .NET Core v3.0.100
+- Updated .NET Core 3.0.100
 
 ## 2019-09-17
 
