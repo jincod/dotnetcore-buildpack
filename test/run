@@ -24,7 +24,7 @@ testDotNetCore22() {
   assertCapturedSuccess
 }
 
-testDotNetCore30Preview() {
+testDotNetCore30() {
   compile "dotnetcore-3.0"
   assertCaptured "dotnetcore-3.0 ->"
   assertCapturedSuccess
