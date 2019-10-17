@@ -30,8 +30,18 @@ testDotNetCore30() {
   assertCapturedSuccess
 }
 
-# Utils
+testDotNetCore30Fsharp() {
+  compile "fsharp-dotnetcore-3.0"
+  assertCaptured "dotnetcore-3.0 ->"
+  assertCapturedSuccess
+}
 
+# Environment Variables
+echo "Get Environment Variables"
+source $(pwd)/test/fixtures/environment-variables
+
+# Utils
+echo "Get Utils for Test"
 pushd $(dirname 0) >/dev/null
 popd >/dev/null
 
