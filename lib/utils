@@ -35,7 +35,8 @@ function install_dotnet() {
     local DOTNET_RUNTIME_DOWNLOAD_URL=https://dotnetcli.blob.core.windows.net/dotnet/Runtime/$DOTNET_RUNTIME_VERSION/dotnet-runtime-$DOTNET_RUNTIME_VERSION-linux-x64.tar.gz
     curl -sSL ${DOTNET_RUNTIME_DOWNLOAD_URL} | tar xz -C ${DOTNET_CACHE_LOCATION}/runtime
   fi
-
+  
+  topic "Export dotnet to Path"
   export PATH="${DOTNET_CACHE_LOCATION}/sdk:$PATH"
   mkdir -p ${BUILD_DIR}/.heroku/dotnet
   cp -r ${DOTNET_CACHE_LOCATION}/runtime ${BUILD_DIR}/.heroku/dotnet
