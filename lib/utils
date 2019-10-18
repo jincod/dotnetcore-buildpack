@@ -5,6 +5,10 @@ function topic() {
   echo "-----> $*"
 }
 
+function info() {
+  echo "> $*"
+}
+
 function indent() {
   c='s/^/       /'
   case $(uname) in
