@@ -28,37 +28,40 @@ export_env_dir "$ENV_DIR"
 export NUGET_XMLDOC_MODE=${NUGET_XMLDOC_MODE:-skip}
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=${DOTNET_SKIP_FIRST_TIME_EXPERIENCE:-1}
 export DOTNET_CLI_TELEMETRY_OPTOUT=${DOTNET_CLI_TELEMETRY_OPTOUT:-1}
-export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
+
+DOTNET_SDK_VERSION=${DOTNET_SDK_VERSION:-3.0.100}
+DOTNET_RUNTIME_VERSION=${DOTNET_RUNTIME_VERSION:-3.0.0}
+BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 
 echo "Installing dotnet"
-install_dotnet $BUILD_DIR $CACHE_DIR
+install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
 
 export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
 
 cd $BUILD_DIR
 
 if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
+	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs -o -iname Program.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
 fi
-
 if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
-
 if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 	topic "WARNING"
 	echo "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
 	echo "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
 fi
+export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
-echo "publish ${PROJECT_FILE}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration Release --runtime linux-x64
+echo "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 
-if [ ! -f ${BUILD_DIR}/Procfile ]; then
+if [ -f ${BUILD_DIR}/Procfile ] && grep -q '^web:' ${BUILD_DIR}/Procfile ; then
+	topic "WARNING"
+	echo "Be careful with custom Procfile" | indent
+else
+	echo "Add web process to Procfile" | indent
 	cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ./${PROJECT_NAME}
 EOT
-else
-	topic "WARNING"
-	echo "Be careful with custom Procfile" | indent
 fi

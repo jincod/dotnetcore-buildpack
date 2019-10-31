@@ -6,9 +6,27 @@ testDotNetCore2() {
   assertCapturedSuccess
 }
 
+testDotNetCore21() {
+  compile "dotnetcore-2.1"
+  assertCaptured "dotnetcore-2.1 ->"
+  assertCapturedSuccess
+}
+
 testDotNetCore2CustomProcfile() {
   compile "custom-procfile"
   assertCaptured "Be careful with custom Procfile"
+  assertCapturedSuccess
+}
+
+testDotNetCore22() {
+  compile "dotnetcore-2.2"
+  assertCaptured "dotnetcore-2.2 ->"
+  assertCapturedSuccess
+}
+
+testDotNetCore30() {
+  compile "dotnetcore-3.0"
+  assertCaptured "dotnetcore-3.0 ->"
   assertCapturedSuccess
 }
 
