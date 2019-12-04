@@ -30,6 +30,12 @@ testDotNetCore30() {
   assertCapturedSuccess
 }
 
+testDotNetCore31() {
+  compile "dotnetcore-3.1"
+  assertCaptured "dotnetcore-3.1 ->"
+  assertCapturedSuccess
+}
+
 # Utils
 
 pushd $(dirname 0) >/dev/null
