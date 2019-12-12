@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# bin/test <build-dir> <env-dir>
+
+### Configure environment
+set -o errexit    # always exit on error
+set -o pipefail   # don't ignore exit codes when piping output
+set -o nounset    # fail on unset variables
+
+### Configure directories
+BUILD_DIR=${1:-}
+ENV_DIR=${2:-}
+BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+
+cd $BUILD_DIR
+
+dotnet test -v q --no-build --no-restore
