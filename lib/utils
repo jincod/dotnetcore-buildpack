@@ -43,6 +43,7 @@ function install_dotnet() {
 
   mkdir -p ${BUILD_DIR}/.heroku/dotnet
   cp -r ${DOTNET_CACHE_LOCATION}/runtime ${BUILD_DIR}/.heroku/dotnet
+  export DOTNET_ROOT="${DOTNET_CACHE_LOCATION}/runtime"
 }
 
 export_env_dir() {

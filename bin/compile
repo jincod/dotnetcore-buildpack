@@ -56,6 +56,7 @@ export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 echo "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 (
+	echo "DOTNET_ROOT at $DOTNET_ROOT"
 	cd ${BUILD_DIR}/heroku_output
 	dotnet ef database update
 )
