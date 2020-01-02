@@ -37,6 +37,10 @@ function install_dotnet() {
   fi
 
   export PATH="${DOTNET_CACHE_LOCATION}/sdk:$PATH"
+
+  echo "Installing tool ef into ${DOTNET_CACHE_LOCATION}/sdk"
+  dotnet tool install -g dotnet-ef --tool-path="${DOTNET_CACHE_LOCATION}/sdk"
+
   mkdir -p ${BUILD_DIR}/.heroku/dotnet
   cp -r ${DOTNET_CACHE_LOCATION}/runtime ${BUILD_DIR}/.heroku/dotnet
 }
@@ -48,6 +52,7 @@ export_env_dir() {
     local blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH|LANG)$'}
     if [ -d "$env_dir" ]; then
       for e in $(ls $env_dir); do
+
         echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
         export "$e=$(cat $env_dir/$e)"
         :

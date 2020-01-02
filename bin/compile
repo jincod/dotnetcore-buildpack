@@ -35,10 +35,8 @@ BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
-export PATH="$PATH:/app/.dotnet/tools"
 
 export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
-export DOTNET_ROOT="${BUILD_DIR}/.heroku/dotnet"
 
 cd $BUILD_DIR
 
@@ -54,9 +52,6 @@ if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 	echo "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
 fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
-
-echo "Installing dotnet-ef"
-dotnet tool install --global dotnet-ef
 
 echo "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
