@@ -35,7 +35,7 @@ BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 
 echo "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
-export PATH="$PATH:/app/.dotnet/tools
+export PATH="$PATH:/app/.dotnet/tools"
 
 export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
 
