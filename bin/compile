@@ -57,8 +57,8 @@ echo "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 (
 	echo "DOTNET_ROOT at $DOTNET_ROOT"
-	cd ${BUILD_DIR}/heroku_output
-	dotnet ef database update
+	#cd ${BUILD_DIR}/heroku_output
+	#dotnet ef database update
 )
 
 if [ -f ${BUILD_DIR}/Procfile ] && grep -q '^web:' ${BUILD_DIR}/Procfile ; then
