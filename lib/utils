@@ -39,7 +39,7 @@ function install_dotnet() {
   export PATH="${DOTNET_CACHE_LOCATION}/sdk:$PATH"
 
   echo "Installing tool ef into ${DOTNET_CACHE_LOCATION}/sdk"
-  dotnet tool install -g dotnet-ef --tool-path="${DOTNET_CACHE_LOCATION}/sdk"
+  dotnet tool install dotnet-ef --tool-path="${DOTNET_CACHE_LOCATION}/sdk"
 
   mkdir -p ${BUILD_DIR}/.heroku/dotnet
   cp -r ${DOTNET_CACHE_LOCATION}/runtime ${BUILD_DIR}/.heroku/dotnet
