@@ -36,6 +36,12 @@ testDotNetCore30Fsharp() {
   assertCapturedSuccess
 }
 
+testDotNetCore31() {
+  compile "dotnetcore-3.1"
+  assertCaptured "dotnetcore-3.1 ->"
+  assertCapturedSuccess
+}
+
 # Environment Variables
 echo "Get Environment Variables"
 source $(pwd)/test/fixtures/environment-variables
