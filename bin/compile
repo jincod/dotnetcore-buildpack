@@ -40,7 +40,7 @@ export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
 
 cd $BUILD_DIR
 
-if [ -f ${BUILD_DIR}/dotnet-tools.json ]; then
+if [ -f ${BUILD_DIR}/dotnet-tools.json ] || [ -f ${BUILD_DIR}/.config/dotnet-tools.json ]; then
 	dotnet tool restore
 fi
 
