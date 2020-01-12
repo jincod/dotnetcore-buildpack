@@ -36,6 +36,12 @@ testDotNetCore31() {
   assertCapturedSuccess
 }
 
+testLocalTools() {
+  compile "local-tools"
+  assertCaptured "Restore was successful."
+  assertCapturedSuccess
+}
+
 # Utils
 
 pushd $(dirname 0) >/dev/null
