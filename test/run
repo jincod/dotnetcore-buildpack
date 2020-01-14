@@ -42,9 +42,11 @@ testDotNetCore31() {
   assertCapturedSuccess
 }
 
-# Environment Variables
-echo "Get Environment Variables"
-source $(pwd)/test/fixtures/environment-variables
+testLocalTools() {
+  compile "local-tools"
+  assertCaptured "Restore was successful."
+  assertCapturedSuccess
+}
 
 # Utils
 echo "Get Utils for Test"

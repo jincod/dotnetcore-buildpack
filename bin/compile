@@ -40,6 +40,10 @@ export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
 
 cd $BUILD_DIR
 
+if [ -f ${BUILD_DIR}/dotnet-tools.json ] || [ -f ${BUILD_DIR}/.config/dotnet-tools.json ]; then
+	dotnet tool restore
+fi
+
 if [ -z ${PROJECT_FILE:-} ]; then
 	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Program.fs -o -iname Program.cs -o -iname Startup.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.fsproj -o -name *.csproj; x=`dirname "$x"`; done)
 fi
