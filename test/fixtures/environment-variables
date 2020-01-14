@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-export STACK=heroku-18
