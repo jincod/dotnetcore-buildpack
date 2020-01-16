@@ -33,7 +33,7 @@ DOTNET_SDK_VERSION=${DOTNET_SDK_VERSION:-3.1.100}
 DOTNET_RUNTIME_VERSION=${DOTNET_RUNTIME_VERSION:-3.1.0}
 BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 
-echo "Installing dotnet"
+info "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
 
 export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
@@ -45,19 +45,27 @@ if [ -f ${BUILD_DIR}/dotnet-tools.json ] || [ -f ${BUILD_DIR}/.config/dotnet-too
 fi
 
 if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs -o -iname Program.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
+	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs -o -iname Program.cs -o -iname Program.fs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.fsproj -o -name *.csproj; x=`dirname "$x"`; done)
 fi
+
+topic "Project File"
+info $PROJECT_FILE
+
 if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
+
+topic "Project Name"
+info $PROJECT_NAME
+
 if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 	topic "WARNING"
-	echo "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
-	echo "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
+	info "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
+	info "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
 fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
-echo "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
+info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 
 if [ -f ${BUILD_DIR}/Procfile ] && grep -q '^web:' ${BUILD_DIR}/Procfile ; then
