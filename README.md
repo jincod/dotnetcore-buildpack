@@ -5,11 +5,11 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/5864d533m5d35nsa?svg=true)](https://ci.appveyor.com/project/jincod/dotnetcore-buildpack)
 
-## Usage
-
-The Buildpack will search through the repository's folders to locate a `Startup.cs`, `Program.cs`, `Startup.fs` or `Program.fs` file. If found, the `.csproj` or `.fsproj` in the containing folder will be used in the `dotnet publish <project>.csproj` or `dotnet publish <project>.fsproj` command.
+The Buildpack supports C# and F# projects. It searchs through the repository's folders to locate a `Startup.*` or `Program.*` file. If found, the `.csproj` or `.fsproj` in the containing folder will be used in the `dotnet publish <project>` command.
 
 If repository contains **multiple** Web Applications (multiple `Startup.*` or `Program.*`), `PROJECT_FILE` and `PROJECT_NAME` environment variables allow to choose project for publishing.
+
+## Usage
 
 ### .NET Core latest stable
 
