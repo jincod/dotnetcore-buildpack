@@ -4,6 +4,14 @@
 
 - Updated .NET Core v3.1.1
 
+## 2020-01-16
+
+- Added F# projects support. Many thanks to @okgarces
+
+## 2020-01-12
+
+- Added .NET Local Tools support
+
 ## 2019-12-04
 
 - Updated .NET Core v3.1.0

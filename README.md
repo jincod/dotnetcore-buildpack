@@ -7,9 +7,9 @@ This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks)
 
 ## Usage
 
-The Buildpack will search through the repository's folders to locate a `Startup.cs` or `Program.cs` file. If found, the `.csproj` in the containing folder will be used in the `dotnet publish <project>.csproj` command.
+The Buildpack will search through the repository's folders to locate a `Startup.cs`, `Program.cs`, `Startup.fs` or `Program.fs` file. If found, the `.csproj` or `.fsproj` in the containing folder will be used in the `dotnet publish <project>.csproj` or `dotnet publish <project>.fsproj` command.
 
-If repository contains **multiple** Web Applications (multiple `Startup.cs`), `PROJECT_FILE` and `PROJECT_NAME` environment variables allow to choose project for publishing.
+If repository contains **multiple** Web Applications (multiple `Startup.*` or `Program.*`), `PROJECT_FILE` and `PROJECT_NAME` environment variables allow to choose project for publishing.
 
 ### .NET Core latest stable
 
@@ -38,7 +38,7 @@ More info
 
 ## Entity Framework Core Migrations
 
-You cannot run migrations with the `dotnet ef` commands once the app is built. Alternatives include:
+You cannot run migrations with the `dotnet ef` commands using **.NET Local Tools** once the app is built. Alternatives include:
 
 ### Enabling Automatic Migrations
 
