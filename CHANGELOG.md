@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2020-02-20
+
+- Updated .NET Core v3.1.2
+
 ## 2020-01-30
 
 - Updated .NET Core v3.1.1
