@@ -68,6 +68,9 @@ export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 
+info "Deleting node modules"
+rm -rf ${BUILD_DIR}/heroku_output/node_modules
+
 if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
 	echo "Be careful with custom Procfile" | indent
