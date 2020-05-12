@@ -69,8 +69,8 @@ info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 
 info "Deleting node modules"
-rm -rf ${BUILD_DIR}/heroku_output/node_modules
-ls ${BUILD_DIR}
+rm -rf ${BUILD_DIR}/node_modules
+du -sh ${BUILD_DIR}
 
 if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
