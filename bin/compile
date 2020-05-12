@@ -70,7 +70,7 @@ dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration
 
 info "Deleting node modules"
 rm -rf ${BUILD_DIR}/node_modules
-du -sk ./${BUILD_DIR}/heroku_output/* | sort -n
+du -sk ${BUILD_DIR}/heroku_output/* | sort -n
 
 if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
