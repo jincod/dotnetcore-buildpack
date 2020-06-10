@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2020-06-10
+
+- Updated .NET Core v5.0.100-preview.5
+
 ## 2020-05-20
 
 - Updated .NET Core v5.0.100-preview.4
