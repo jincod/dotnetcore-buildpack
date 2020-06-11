@@ -23,6 +23,12 @@ heroku buildpacks:set jincod/dotnetcore
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
 ```
 
+### .NET Core Preview releases
+
+```
+heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#preview
+```
+
 ### Previous releases
 
 ```
