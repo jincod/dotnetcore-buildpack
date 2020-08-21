@@ -48,6 +48,13 @@ You cannot run migrations with the `dotnet ef` commands using **.NET Local Tools
 
 ### Enabling Automatic Migrations
 
+- Ensure there is a .NET local tool manifest file(dotnet-tools.json) which specifies the dotnet-ef tool:
+
+```bash
+dotnet new tool-manifest
+dotnet tool install dotnet-ef
+```
+
 - Ensure the `ASPNETCORE_ENVIRONMENT` environment variable is set to `Production`. ASP.NET Core scaffolding tools may create files that explicitly set it to `Development`. Heroku config will override this (`heroku config:set ASPNETCORE_ENVIRONMENT=Production`).
 - Configure your app to automatically run migrations at startup by adding the following to the `.csproj` file:
 
