@@ -58,6 +58,10 @@ fi
 topic "Project Name"
 info $PROJECT_NAME
 
+if [ -z ${OUTPUT_DIR:-} ]; then
+	OUTPUT_DIR=heroku_output
+fi
+
 if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 	topic "WARNING"
 	info "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
@@ -65,8 +69,8 @@ if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
-info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
+info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION} on ${OUTPUT_DIR}"
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 
 if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
