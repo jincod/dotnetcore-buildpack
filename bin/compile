@@ -17,6 +17,7 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+OUTPUT_DIR=${OUTPUT_DIR:-heroku_output}
 
 mkdir -p $BUILD_DIR/.profile.d
 cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
@@ -57,10 +58,6 @@ fi
 
 topic "Project Name"
 info $PROJECT_NAME
-
-if [ -z ${OUTPUT_DIR:-} ]; then
-	OUTPUT_DIR=heroku_output
-fi
 
 if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 	topic "WARNING"
