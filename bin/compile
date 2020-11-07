@@ -72,9 +72,12 @@ dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration
 info "File / Folder sizes (before node_modules deletion):"
 du -sh *
 
-info "Deleting node modules @ ${BUILD_DIR}/Website/ClientApp/node_modules"
+info "Deleting node modules @ ${BUILD_DIR}/Website/ClientApp/node_modules..."
 rm -rf ${BUILD_DIR}/Website/ClientApp/node_modules
 
+info "Deleting non-heroku directories..."
+shopt -s extglob
+rm -rf !(heroku_output)
 
 info "File / Folder sizes:"
 du -sh *
