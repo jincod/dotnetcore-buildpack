@@ -69,17 +69,12 @@ export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION} on ${OUTPUT_DIR}"
 dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 
-info "File / Folder sizes (before node_modules deletion):"
-du -sh *
-
-info "Deleting node modules @ ${BUILD_DIR}/Website/ClientApp/node_modules..."
-rm -rf ${BUILD_DIR}/Website/ClientApp/node_modules
-
 info "Deleting non-heroku directories..."
 shopt -s extglob
 rm -rf !(heroku_output)
 
-info "File / Folder sizes:"
+info "Heroku File / Folder sizes:"
+cd heroku_output
 du -sh *
 
 if [ -f ${BUILD_DIR}/Procfile ]; then
