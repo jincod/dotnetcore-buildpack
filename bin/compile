@@ -72,6 +72,9 @@ dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration
 info "Deleting node modules"
 rm -rf ${BUILD_DIR}/node_modules
 
+info "File / Folder sizes:"
+du -sh *
+
 if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
 	echo "Be careful with custom Procfile" | indent
