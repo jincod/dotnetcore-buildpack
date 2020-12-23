@@ -23,7 +23,7 @@ mkdir -p $BUILD_DIR/.profile.d
 cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
 
 ### Convert output directory path to absolute path.
-OUTPUT_DIR="$(cd ${HOME}&&cd $OUTPUT_DIR&&pwd)"
+OUTPUT_DIR="$(cd ${HOME}&&mkdir -p ${OUTPUT_DIR}&&cd ${OUTPUT_DIR}&&pwd)"
 
 ### Load dependencies
 source $BP_DIR/lib/utils
