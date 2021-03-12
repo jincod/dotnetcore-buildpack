@@ -7,8 +7,8 @@ set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 
-if [ "$STACK" != "heroku-16" ] && [ "$STACK" != "heroku-18" ]; then
-	echo "Need heroku-16 or heroku-18 stack"
+if [ "$STACK" == "cedar-14" ]; then
+	echo "cedar-14 isn't supported"
 	exit 1
 fi
 
@@ -17,6 +17,7 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+OUTPUT_DIR=${OUTPUT_DIR:-heroku_output}
 
 mkdir -p $BUILD_DIR/.profile.d
 cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
@@ -65,10 +66,10 @@ if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
-info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
+info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION} on ${OUTPUT_DIR}"
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
 
-if [ -f ${BUILD_DIR}/Procfile ] && grep -q '^web:' ${BUILD_DIR}/Procfile ; then
+if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
 	echo "Be careful with custom Procfile" | indent
 else
