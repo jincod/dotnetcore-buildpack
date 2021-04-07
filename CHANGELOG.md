@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2021-04-07
+
+- Updated .NET Core v5.0.202
+
 ## 2021-03-12
 
 - Updated .NET Core v5.0.201
