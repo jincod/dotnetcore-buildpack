@@ -78,3 +78,10 @@ else
 web: cd \$HOME/heroku_output && ./${PROJECT_NAME}
 EOT
 fi
+
+if [ -n ${HEROKUISH:-} ]; then
+	echo "Override Procfile for herokuish" | indent
+	cat << EOT >> ${BUILD_DIR}/Procfile
+web: \$HOME/heroku_output/${PROJECT_NAME}
+EOT
+fi
