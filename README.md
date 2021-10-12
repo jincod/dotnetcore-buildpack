@@ -81,12 +81,6 @@ heroku buildpacks:add --index 1 heroku/nodejs
 
 [Using Multiple Buildpacks for an App](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app)
 
-## herokuish support
-
-```bash
-heroku config:set HEROKUISH=true
-```
-
 ## Example
 
 [ASP.NET Core Demo App](https://github.com/jincod/AspNet5DemoApp)
