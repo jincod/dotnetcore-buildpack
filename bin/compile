@@ -67,7 +67,7 @@ fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
 info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION} on ${OUTPUT_DIR}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64  --self-contained
 
 if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
