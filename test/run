@@ -48,6 +48,12 @@ testDotNetCore5() {
   assertCapturedSuccess
 }
 
+testDotNet6() {
+  compile "dotnet-6.0"
+  assertCaptured "dotnet-6.0 ->"
+  assertCapturedSuccess
+}
+
 testLocalTools() {
   compile "local-tools"
   assertCaptured "Restore was successful."

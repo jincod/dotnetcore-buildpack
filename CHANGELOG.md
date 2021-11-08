@@ -3,30 +3,46 @@
 ## 2021-10-13
 
 - Updated .NET Core v5.0.402
+- Updated .NET Core 6.0.100-rc.2
 
 ## 2021-09-15
 
 - Updated .NET Core v5.0.401
+- Updated .NET Core 6.0.100-rc.1
 
 ## 2021-08-12
 
 - Updated .NET Core v5.0.400
+- Updated .NET Core v6.0.100-preview.7
 
 ## 2021-07-15
 
 - Updated .NET Core v5.0.302
+- Updated .NET Core v6.0.100-preview.6
 
 ## 2021-06-18
 
 - Updated .NET Core v5.0.301
+- Updated .NET Core v6.0.100-preview.5
+
+## 2021-05-26
+
+- Updated .NET Core v6.0.100-preview.4
 
 ## 2021-04-07
 
-- Updated .NET Core v5.0.202
+- Updated .NET Core v6.0.100-preview.4
+
+## 2021-04-11
+
+- Updated .NET Core v6.0.100-preview.3
 
 ## 2021-03-12
 
+
 - Updated .NET Core v5.0.201
+
+- Updated .NET Core v6.0.100-preview.2.21155.3
 
 ## 2021-02-16
 
