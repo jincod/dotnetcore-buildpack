@@ -7,8 +7,8 @@ set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 
-if [ "$STACK" != "heroku-16" ] && [ "$STACK" != "heroku-18" ]; then
-	echo "Need heroku-16 or heroku-18 stack"
+if [ "$STACK" == "cedar-14" ]; then
+	echo "cedar-14 isn't supported"
 	exit 1
 fi
 
@@ -17,6 +17,7 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+OUTPUT_DIR=${OUTPUT_DIR:-heroku_output}
 
 mkdir -p $BUILD_DIR/.profile.d
 cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
@@ -29,34 +30,46 @@ export NUGET_XMLDOC_MODE=${NUGET_XMLDOC_MODE:-skip}
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=${DOTNET_SKIP_FIRST_TIME_EXPERIENCE:-1}
 export DOTNET_CLI_TELEMETRY_OPTOUT=${DOTNET_CLI_TELEMETRY_OPTOUT:-1}
 
-DOTNET_SDK_VERSION=${DOTNET_SDK_VERSION:-3.1.100}
-DOTNET_RUNTIME_VERSION=${DOTNET_RUNTIME_VERSION:-3.1.0}
+DOTNET_SDK_VERSION=${DOTNET_SDK_VERSION:-6.0.100}
+DOTNET_RUNTIME_VERSION=${DOTNET_RUNTIME_VERSION:-6.0.0}
 BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 
-echo "Installing dotnet"
+info "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
 
 export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
 
 cd $BUILD_DIR
 
-if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs -o -iname Program.cs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.csproj; x=`dirname "$x"`; done)
+if [ -f ${BUILD_DIR}/dotnet-tools.json ] || [ -f ${BUILD_DIR}/.config/dotnet-tools.json ]; then
+	dotnet tool restore
 fi
+
+if [ -z ${PROJECT_FILE:-} ]; then
+	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs -o -iname Program.cs -o -iname Program.fs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.fsproj -o -name *.csproj; x=`dirname "$x"`; done)
+fi
+
+topic "Project File"
+info $PROJECT_FILE
+
 if [ -z ${PROJECT_NAME:-} ]; then
 	PROJECT_NAME=$(basename ${PROJECT_FILE%.*})
 fi
+
+topic "Project Name"
+info $PROJECT_NAME
+
 if [ -n "$(cat $PROJECT_FILE | grep 'netcoreapp2.0')" ]; then
 	topic "WARNING"
-	echo "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
-	echo "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
+	info "For netcoreapp2.0 use https://github.com/jincod/dotnetcore-buildpack#v2.1.200" | indent
+	info "More info https://github.com/jincod/dotnetcore-buildpack/issues/44" | indent
 fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
-echo "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/heroku_output --configuration ${BUILD_CONFIGURATION} --runtime linux-x64
+info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION} on ${OUTPUT_DIR}"
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64  --self-contained
 
-if [ -f ${BUILD_DIR}/Procfile ] && grep -q '^web:' ${BUILD_DIR}/Procfile ; then
+if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
 	echo "Be careful with custom Procfile" | indent
 else
@@ -64,4 +77,9 @@ else
 	cat << EOT >> ${BUILD_DIR}/Procfile
 web: cd \$HOME/heroku_output && ./${PROJECT_NAME}
 EOT
+fi
+
+if [ -n ${HEROKUISH:-""} ]; then
+	echo "Override Procfile for herokuish" | indent
+	echo "web: \$HOME/heroku_output/${PROJECT_NAME}" > ${BUILD_DIR}/Procfile
 fi

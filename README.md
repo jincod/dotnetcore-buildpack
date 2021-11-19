@@ -3,13 +3,13 @@
 
 This is the [Heroku buildpack](https://devcenter.heroku.com/articles/buildpacks) for [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/5864d533m5d35nsa?svg=true)](https://ci.appveyor.com/project/jincod/dotnetcore-buildpack)
+[![Actions Status](https://github.com/jincod/dotnetcore-buildpack/workflows/main/badge.svg)](https://github.com/jincod/dotnetcore-buildpack/actions)
+
+The Buildpack supports C# and F# projects. It searchs through the repository's folders to locate a `Startup.*` or `Program.*` file. If found, the `.csproj` or `.fsproj` in the containing folder will be used in the `dotnet publish <project>` command.
+
+If repository contains **multiple** Web Applications (multiple `Startup.*` or `Program.*`), `PROJECT_FILE` and `PROJECT_NAME` environment variables allow to choose project for publishing.
 
 ## Usage
-
-The Buildpack will search through the repository's folders to locate a `Startup.cs` or `Program.cs` file. If found, the `.csproj` in the containing folder will be used in the `dotnet publish <project>.csproj` command.
-
-If repository contains **multiple** Web Applications (multiple `Startup.cs`), `PROJECT_FILE` and `PROJECT_NAME` environment variables allow to choose project for publishing.
 
 ### .NET Core latest stable
 
@@ -21,6 +21,12 @@ heroku buildpacks:set jincod/dotnetcore
 
 ```
 heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack
+```
+
+### .NET Core Preview release
+
+```
+heroku buildpacks:set https://github.com/jincod/dotnetcore-buildpack#preview
 ```
 
 ### Previous releases
@@ -38,9 +44,16 @@ More info
 
 ## Entity Framework Core Migrations
 
-You cannot run migrations with the `dotnet ef` commands once the app is built. Alternatives include:
+You cannot run migrations with the `dotnet ef` commands using **.NET Local Tools** once the app is built. Alternatives include:
 
 ### Enabling Automatic Migrations
+
+- Ensure there is a .NET local tool manifest file(dotnet-tools.json) which specifies the dotnet-ef tool:
+
+```bash
+dotnet new tool-manifest
+dotnet tool install dotnet-ef
+```
 
 - Ensure the `ASPNETCORE_ENVIRONMENT` environment variable is set to `Production`. ASP.NET Core scaffolding tools may create files that explicitly set it to `Development`. Heroku config will override this (`heroku config:set ASPNETCORE_ENVIRONMENT=Production`).
 - Configure your app to automatically run migrations at startup by adding the following to the `.csproj` file:
@@ -67,6 +80,12 @@ heroku buildpacks:add --index 1 heroku/nodejs
 ```
 
 [Using Multiple Buildpacks for an App](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app)
+
+## herokuish support
+
+```bash
+heroku config:set HEROKUISH=true
+```
 
 ## Example
 

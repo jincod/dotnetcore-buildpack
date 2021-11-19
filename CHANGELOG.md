@@ -1,5 +1,150 @@
 # .NET Core Buildpack Changelog
 
+## 2021-11-08
+
+- Updated .NET 6
+
+## 2021-10-13
+
+- Updated .NET Core v5.0.402
+- Updated .NET Core 6.0.100-rc.2
+
+## 2021-09-15
+
+- Updated .NET Core v5.0.401
+- Updated .NET Core 6.0.100-rc.1
+
+## 2021-08-12
+
+- Updated .NET Core v5.0.400
+- Updated .NET Core v6.0.100-preview.7
+
+## 2021-07-15
+
+- Updated .NET Core v5.0.302
+- Updated .NET Core v6.0.100-preview.6
+
+## 2021-06-18
+
+- Updated .NET Core v5.0.301
+- Updated .NET Core v6.0.100-preview.5
+
+## 2021-05-26
+
+- Updated .NET Core v6.0.100-preview.4
+
+## 2021-04-07
+
+- Updated .NET Core v6.0.100-preview.4
+
+## 2021-04-11
+
+- Updated .NET Core v6.0.100-preview.3
+
+## 2021-03-12
+
+
+- Updated .NET Core v5.0.201
+
+- Updated .NET Core v6.0.100-preview.2.21155.3
+
+## 2021-02-16
+
+- Updated .NET Core v5.0.103
+
+## 2021-01-13
+
+- Updated .NET Core v5.0.102
+
+## 2020-12-11
+
+- Updated .NET Core v5.0.101
+
+## 2020-11-11
+
+- Updated .NET Core v5.0.100
+
+## 2020-10-14
+
+- Updated .NET Core v5.0.100-rc.2
+- Updated .NET Core v3.1.9
+
+## 2020-09-15
+
+- Updated .NET Core v5.0.100-rc.1
+
+## 2020-09-09
+
+- Updated .NET Core v3.1.8
+
+## 2020-08-26
+
+- Updated .NET Core v5.0.100-preview.8
+
+## 2020-08-13
+
+- Updated .NET Core v3.1.7
+
+## 2020-07-15
+
+- Updated .NET Core v3.1.6
+
+## 2020-06-22
+
+- Updated .NET Core v5.0.100-preview.7
+
+## 2020-06-26
+
+- Updated .NET Core v5.0.100-preview.6
+
+## 2020-06-16
+
+- Updated .NET Core v3.1.5
+
+## 2020-06-10
+
+- Updated .NET Core v5.0.100-preview.5
+
+## 2020-05-20
+
+- Updated .NET Core v5.0.100-preview.4
+
+## 2020-05-13
+
+- Updated .NET Core v3.1.4
+
+## 2020-04-24
+
+- Updated .NET Core v5.0.100-preview.3
+
+## 2020-04-03
+
+- Updated .NET Core v5.0.100-preview.2
+
+## 2020-03-26
+
+- Updated .NET Core v3.1.3
+
+## 2020-03-17
+
+- Updated .NET Core v5.0.100-preview.1
+
+## 2020-02-20
+
+- Updated .NET Core v3.1.2
+
+## 2020-01-30
+
+- Updated .NET Core v3.1.1
+
+## 2020-01-16
+
+- Added F# projects support. Many thanks to @okgarces
+
+## 2020-01-12
+
+- Added .NET Local Tools support
+
 ## 2019-12-04
 
 - Updated .NET Core v3.1.0
