@@ -2,6 +2,10 @@
 
 ## 2022-05-11
 
+- Updated .NET Core 7.0.100-preview.5
+
+## 2022-06-15
+
 - Updated .NET Core 7.0.100-preview.4
 
 ## 2022-04-14
