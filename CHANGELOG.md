@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2022-07-13
+
+- Updated .NET SDK 6.0.302
+
 ## 2022-06-15
 
 - Updated .NET SDK 6.0.301
