@@ -37,8 +37,6 @@ BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 info "Installing dotnet"
 install_dotnet $BUILD_DIR $CACHE_DIR $DOTNET_SDK_VERSION $DOTNET_RUNTIME_VERSION
 
-export PATH="${BUILD_DIR}/.heroku/dotnet:${PATH}"
-
 cd $BUILD_DIR
 
 if [ -f ${BUILD_DIR}/dotnet-tools.json ] || [ -f ${BUILD_DIR}/.config/dotnet-tools.json ]; then
@@ -67,7 +65,7 @@ fi
 export NUGET_PACKAGES="${CACHE_DIR}/nuget/cache"
 
 info "publish ${PROJECT_FILE} for ${BUILD_CONFIGURATION} on ${OUTPUT_DIR}"
-dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64  --self-contained
+dotnet publish $PROJECT_FILE --output ${BUILD_DIR}/${OUTPUT_DIR} --configuration ${BUILD_CONFIGURATION} --runtime linux-x64 --self-contained
 
 if [ -f ${BUILD_DIR}/Procfile ]; then
 	topic "WARNING"
