@@ -18,6 +18,11 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 OUTPUT_DIR=${OUTPUT_DIR:-heroku_output}
+SRC=${CACHE_DIR}/src
+
+mkdir -p ${SRC}
+shopt -s dotglob
+mv ${BUILD_DIR}/* ${SRC}
 
 mkdir -p $BUILD_DIR/.profile.d
 cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
@@ -36,14 +41,14 @@ BUILD_CONFIGURATION=${BUILD_CONFIGURATION:-Release}
 info "Installing dotnet"
 install_dotnet $CACHE_DIR $DOTNET_SDK_VERSION
 
-cd $BUILD_DIR
+cd $SRC
 
-if [ -f ${BUILD_DIR}/dotnet-tools.json ] || [ -f ${BUILD_DIR}/.config/dotnet-tools.json ]; then
+if [ -f ${SRC}/dotnet-tools.json ] || [ -f ${SRC}/.config/dotnet-tools.json ]; then
 	dotnet tool restore
 fi
 
 if [ -z ${PROJECT_FILE:-} ]; then
-	PROJECT_FILE=$(x=$(dirname $(find ${BUILD_DIR} -maxdepth 5 -iname Startup.cs -o -iname Program.cs -o -iname Program.fs | head -1)); while [[ "$x" =~ $BUILD_DIR ]] ; do find "$x" -maxdepth 1 -name *.fsproj -o -name *.csproj; x=`dirname "$x"`; done)
+	PROJECT_FILE=$(x=$(dirname $(find ${SRC} -maxdepth 5 -iname Startup.cs -o -iname Program.cs -o -iname Program.fs | head -1)); while [[ "$x" =~ $SRC ]] ; do find "$x" -maxdepth 1 -name *.fsproj -o -name *.csproj; x=`dirname "$x"`; done)
 fi
 
 topic "Project File"
