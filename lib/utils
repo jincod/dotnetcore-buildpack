@@ -34,10 +34,6 @@ function install_dotnet() {
     curl -sSL ${DOTNET_SDK_DOWNLOAD_URL} | tar xz -C ${DOTNET_CACHE_LOCATION}/sdk
     find ${DOTNET_CACHE_LOCATION}/sdk/sdk/${DOTNET_SDK_VERSION}/runtimes/* -maxdepth 0 ! -name unix -exec rm -r {} +
     rm -f ${DOTNET_CACHE_LOCATION}/sdk/sdk/${DOTNET_SDK_VERSION}/nuGetPackagesArchive.lzma
-
-    topic "Fetching .NET Runtime"
-    local DOTNET_RUNTIME_DOWNLOAD_URL=https://dotnetcli.blob.core.windows.net/dotnet/Runtime/$DOTNET_RUNTIME_VERSION/dotnet-runtime-$DOTNET_RUNTIME_VERSION-linux-x64.tar.gz
-    curl -sSL ${DOTNET_RUNTIME_DOWNLOAD_URL} | tar xz -C ${DOTNET_CACHE_LOCATION}/runtime
   fi
   
   topic "Export dotnet to Path"
