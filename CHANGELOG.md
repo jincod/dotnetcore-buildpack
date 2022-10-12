@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2022-10-12
+
+- Updated .NET Core 7.0.100-rc.2
+
 ## 2022-09-16
 
 - Updated .NET Core 7.0.100-rc.1
