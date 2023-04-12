@@ -54,6 +54,12 @@ testDotNet6() {
   assertCapturedSuccess
 }
 
+testDotNet7() {
+  compile "dotnet-7.0"
+  assertCaptured "dotnet-7.0 ->"
+  assertCapturedSuccess
+}
+
 testLocalTools() {
   compile "local-tools"
   assertCaptured "Restore was successful."
