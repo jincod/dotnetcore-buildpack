@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2023-09-15
+
+- Updated SDK SDK 8.0.100-rc.1
+
 ## 2023-08-10
 
 - Updated SDK 8.0.100-preview.7
