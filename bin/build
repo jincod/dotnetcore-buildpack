@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# bin/compile <build-dir> <cache-dir> <env-dir>
+# bin/bulid
+# Working dir <app[AI]>
+# Spec https://github.com/buildpacks/spec/blob/main/buildpack.md#build
 
 ### Configure environment
 set -o errexit    # always exit on error
@@ -7,17 +9,31 @@ set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
 
-if [ "$STACK" == "cedar-14" ]; then
+if [ "${STACK:-}" == "cedar-14" ]; then
 	echo "cedar-14 isn't supported"
 	exit 1
 fi
 
 ### Configure directories
-BUILD_DIR=${1:-}
-CACHE_DIR=${2:-}
-ENV_DIR=${3:-}
+BUILD_DIR="$PWD"
+CACHE_DIR="${CNB_LAYERS_DIR}/dotnetcore-buildpack-cache"
+ENV_DIR="${CNB_PLATFORM_DIR}/env"
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
-OUTPUT_DIR=${OUTPUT_DIR:-heroku_output}
+OUTPUT_DIR="${CNB_LAYERS_DIR}/dotnetcore-buildpack"
+
+cat >"$CACHE_DIR.toml"<<EOL
+[types]
+  launch = false
+  build = true
+  cache = true
+EOL
+
+cat >"$OUTPUT_DIR.toml"<<EOL
+[types]
+  launch = true
+  build = false
+  cache = false
+EOL
 
 mkdir -p $BUILD_DIR/.profile.d
 cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/

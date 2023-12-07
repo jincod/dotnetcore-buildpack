@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
-# bin/detect <build-dir>
+# bin/detect
+# Working dir <app[AR]>
+# spec https://github.com/buildpacks/spec/blob/main/buildpack.md#detection
 
-if [ -n "$(find $1 -maxdepth 5 -iname Startup.cs)" ]; then
-  echo "ASP.NET Core" && exit 0
-elif [ -n "$(find $1 -maxdepth 5 -iname Program.cs)" ]; then
-  echo "Core .NET" && exit 0
-elif [ -n "$(find $1 -maxdepth 5 -iname Program.fs)" ]; then
-  echo "Core .NET" && exit 0
+CODE_DIR="$PWD"
+
+if [ -n "$(find $CODE_DIR -maxdepth 5 -iname Startup.cs)" ]; then
+  echo "ASP.NET Core"
+elif [ -n "$(find $CODE_DIR -maxdepth 5 -iname Program.cs)" ]; then
+  echo "Core .NET"
+elif [ -n "$(find $CODE_DIR -maxdepth 5 -iname Program.fs)" ]; then
+  echo "Core .NET"
 else
-  echo "no" && exit 1
+  echo "no"
+  exit 100
 fi
+
+exit 0
