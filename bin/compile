@@ -22,6 +22,9 @@ OUTPUT_DIR=${OUTPUT_DIR:-heroku_output}
 mkdir -p $BUILD_DIR/.profile.d
 cp $BP_DIR/profile/* $BUILD_DIR/.profile.d/
 
+### Convert output directory path to absolute path.
+OUTPUT_DIR="$(cd ${HOME}&&mkdir -p ${OUTPUT_DIR}&&cd ${OUTPUT_DIR}&&pwd)"
+
 ### Load dependencies
 source $BP_DIR/lib/utils
 
@@ -75,7 +78,7 @@ if [ -f ${BUILD_DIR}/Procfile ]; then
 else
 	echo "Add web process to Procfile" | indent
 	cat << EOT >> ${BUILD_DIR}/Procfile
-web: cd \$HOME/heroku_output && ./${PROJECT_NAME}
+web: cd ${OUTPUT_DIR} && ./${PROJECT_NAME}
 EOT
 fi
 
