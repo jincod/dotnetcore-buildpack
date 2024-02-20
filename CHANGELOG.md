@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2024-02-20
+
+- Updated .NET Core 8.0.201
+
 ## 2023-11-15
 
 - Updated .NET Core 8.0.100
