@@ -1,5 +1,9 @@
 # .NET Core Buildpack Changelog
 
+## 2024-03-26
+
+- Updated SDK 9.0.0-preview.2
+
 ## 2024-02-20
 
 - Updated SDK 9.0.0-preview.1
