@@ -104,6 +104,15 @@ heroku buildpacks:add --index 1 heroku/nodejs
 heroku config:set HEROKUISH=true
 ```
 
+## Multiple Process Types
+If you have multiple projects in a monorepo and wish to treat them as separate process types:
+1. Build the projects simultaneously by setting the `PROJECT_FILE` config var to a solution file that references them.
+2. Provide a custom `Procfile` that enumerates the desired process types, for example:
+```Procfile
+web: cd $HOME/heroku_output && ./MySolution.Web
+worker: cd $HOME/heroku_output && ./MySolution.Worker
+```
+
 ## Example
 
 [ASP.NET Core Demo App](https://github.com/jincod/AspNet5DemoApp)
