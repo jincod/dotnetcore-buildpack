@@ -11,3 +11,5 @@ jobs:
       run: make test-heroku-20
     - name: Test heroku-22
       run: make test-heroku-22
+    - name: Test heroku-24
+      run: make test-heroku-24
