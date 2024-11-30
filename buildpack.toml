@@ -1,0 +1,14 @@
+api = "0.10"
+
+[buildpack]
+id = "jincod/dotnetcore-buildpack"
+version = "7.0.401"
+name = "jincod/dotnetcore-buildpack"
+homepage = "https://github.com/jincod/dotnetcore-buildpack"
+
+[[stacks]]
+id = "heroku-22"
+
+[[targets]]
+os = "linux"
+arch = "amd64"
